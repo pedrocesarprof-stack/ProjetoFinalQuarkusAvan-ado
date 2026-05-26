@@ -1,0 +1,13 @@
+﻿meta {
+  name: Deletar Produto ADMIN
+  type: http
+  seq: 5
+}
+delete {
+  url: {{baseUrl}}/produtos/1
+  body: none
+  auth: bearer
+}
+auth:bearer {
+  token: {{token}}
+}

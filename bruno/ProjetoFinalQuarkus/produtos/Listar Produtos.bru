@@ -1,0 +1,13 @@
+﻿meta {
+  name: Listar Produtos
+  type: http
+  seq: 1
+}
+get {
+  url: {{baseUrl}}/produtos
+  body: none
+  auth: bearer
+}
+auth:bearer {
+  token: {{token}}
+}
