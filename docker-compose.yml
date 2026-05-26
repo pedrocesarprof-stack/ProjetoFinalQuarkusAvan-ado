@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: quarkus_postgres
+    environment:
+      POSTGRES_DB: produtosdb
+      POSTGRES_USER: quarkus
+      POSTGRES_PASSWORD: quarkus
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - quarkus_net
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.0
+    container_name: quarkus_zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - quarkus_net
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.0
+    container_name: quarkus_kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    networks:
+      - quarkus_net
+
+volumes:
+  postgres_data:
+
+networks:
+  quarkus_net:
+    driver: bridge
+

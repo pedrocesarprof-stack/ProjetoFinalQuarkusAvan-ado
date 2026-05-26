@@ -1,0 +1,65 @@
+### Login como ADMIN
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@loja.com",
+  "senha": "admin123"
+}
+
+### Login como USER
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@loja.com",
+  "senha": "user123"
+}
+
+### Registrar novo usuário
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "email": "joao@email.com",
+  "senha": "minhaSenha123",
+  "role": "USER"
+}
+
+### Listar produtos (USER ou ADMIN) — substitua o TOKEN abaixo
+GET http://localhost:8080/produtos
+Authorization: Bearer TOKEN_AQUI
+
+### Buscar produto por ID
+GET http://localhost:8080/produtos/1
+Authorization: Bearer TOKEN_AQUI
+
+### Cadastrar produto (ADMIN)
+POST http://localhost:8080/produtos
+Content-Type: application/json
+Authorization: Bearer TOKEN_AQUI
+
+{
+  "nome": "Caneta Azul",
+  "descricao": "Caneta esferográfica azul",
+  "preco": 1.99,
+  "estoque": 3
+}
+
+### Atualizar produto (ADMIN)
+PUT http://localhost:8080/produtos/1
+Content-Type: application/json
+Authorization: Bearer TOKEN_AQUI
+
+{
+  "nome": "Caneta Azul Premium",
+  "descricao": "Caneta esferográfica azul premium",
+  "preco": 2.50,
+  "estoque": 4
+}
+
+### Deletar produto (ADMIN)
+DELETE http://localhost:8080/produtos/1
+Authorization: Bearer TOKEN_AQUI
+
